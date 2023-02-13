@@ -1,0 +1,14 @@
+services:
+  web_main:
+
+  web_soton-verify:
+
+  web_hackathon-dashboard:
+
+  bot_soton-verify:
+
+  bot_main:
+
+  mongo_db:
+
+  caddy:
