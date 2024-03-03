@@ -1,14 +1,34 @@
+version: "3.7"
 services:
+
   web_main:
+    image: ecss/web_main:feat-docker
+    container_name: web_main
+    ports:
+      - "3000:3000"
+    volumes:
+        - web_main_data:/home/node/app/media
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    env_file:
+      - ./env/web_main.env
 
-  web_soton-verify:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongodb_data:/data/db
 
-  web_hackathon-dashboard:
 
-  bot_soton-verify:
 
-  bot_main:
 
-  mongo_db:
 
-  caddy:
+
+volumes:
+  web_main_data:
+  mongodb_data:
