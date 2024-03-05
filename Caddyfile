@@ -19,5 +19,5 @@ society.ecs.soton.ac.uk:8081 {
 }
 
 society.ecs.soton.ac.uk:15432 {
-        reverse_proxy pgadmin:15432
+        reverse_proxy pgadmin:3002
 }
