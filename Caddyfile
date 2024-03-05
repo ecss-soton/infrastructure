@@ -9,7 +9,7 @@ society.ecs.soton.ac.uk {
                 reverse_proxy web_mongo:3001
         }
 
-        handle_path /fusion-hack/* {
+        handle /fusion-hack/* {
                 reverse_proxy web_teamreg:3001
         }
 }
