@@ -7,6 +7,8 @@ services:
     volumes:
         - web_main_data:/home/node/app/media
     restart: unless-stopped
+    ports:
+      - "3000:3000"
     depends_on:
       - db_mongo
     env_file:
@@ -24,6 +26,8 @@ services:
     restart: unless-stopped
     depends_on:
       - db_postgres
+    environment:
+      - PORT=3001
     env_file:
       - env/web_teamreg.env
 
@@ -44,7 +48,7 @@ services:
     volumes:
       - mongodb_data:/data/db
     ports:
-      - "27018:27017"
+      - "27017:27017"
 
   db_postgres:
     image: postgres

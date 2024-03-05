@@ -8,8 +8,16 @@ society.ecs.soton.ac.uk {
         handle_path /service/mongo/* {
                 reverse_proxy web_mongo:3001
         }
+
+        handle_path /fusion-hack/* {
+                reverse_proxy web_teamreg:3001
+        }
 }
 
 society.ecs.soton.ac.uk:8081 {
         respond "8081 is working :)"
+}
+
+society.ecs.soton.ac.uk:15432 {
+        reverse_proxy pgadmin:15432
 }
