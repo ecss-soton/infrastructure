@@ -2,7 +2,7 @@ version: "3.7"
 services:
 
   web_main:
-    image: ecss/web_main:feat-docker
+    image: ecss/web_main:main
     container_name: web_main
     volumes:
         - web_main_data:/home/node/app/media
@@ -50,30 +50,30 @@ services:
     ports:
       - "27017:27017"
 
-  db_postgres:
-    image: postgres
-    container_name: db_postgres
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: ecss
-      POSTGRES_PASSWORD: example
-      POSTGRES_DB: ecss-fusion-hackathon
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-
-  pgadmin:
-    image: dpage/pgadmin4:latest
-    container_name: pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@pgadmin.com
-      PGADMIN_DEFAULT_PASSWORD: password
-      PGADMIN_LISTEN_PORT: 3002
-    ports:
-      - "3002:3002"
-    volumes:
-      - pgadmin_data:/var/lib/pgadmin
-    depends_on:
-      - db_postgres
+#  db_postgres:
+#    image: postgres
+#    container_name: db_postgres
+#    restart: unless-stopped
+#    environment:
+#      POSTGRES_USER: ecss
+#      POSTGRES_PASSWORD: example
+#      POSTGRES_DB: ecss-fusion-hackathon
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data/
+#
+#  pgadmin:
+#    image: dpage/pgadmin4:latest
+#    container_name: pgadmin
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: admin@pgadmin.com
+#      PGADMIN_DEFAULT_PASSWORD: password
+#      PGADMIN_LISTEN_PORT: 3002
+#    ports:
+#      - "3002:3002"
+#    volumes:
+#      - pgadmin_data:/var/lib/pgadmin
+#    depends_on:
+#      - db_postgres
 
   portainer:
     image: portainer/portainer-ee:latest
