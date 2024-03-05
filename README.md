@@ -39,10 +39,7 @@ git clone https://github.com/ecss-soton/infrastructure.git && cd infrastructure
 2. Copy the example env files and fill them in with the production values
 
 ```bash
-cp env/web_main.env.example env/web_main.env
-cp env/web_sotonverify.env.example env/web_sotonverify.env
-cp env/web_teamreg.env.example env/web_teamreg.env
-cp env/bot_sotonverify.env.example env/bot_sotonverify.env
+cp env/web_main.env.example env/web_main.env && cp env/web_sotonverify.env.example env/web_sotonverify.env && cp env/web_teamreg.env.example env/web_teamreg.env && cp env/bot_sotonverify.env.example env/bot_sotonverify.env
 ```
 
 3. Configure the Caddyfile
@@ -60,8 +57,7 @@ docker compose up -d
 1. Run the update script
 
 ```bash
-chmod +x update.sh
-./update.sh
+chmod +x scripts/update.sh && ./scripts/update.sh
 ```
 
 
