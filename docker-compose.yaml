@@ -51,9 +51,24 @@ services:
     container_name: db_postgres
     restart: unless-stopped
     environment:
+      POSTGRES_USER: ecss
       POSTGRES_PASSWORD: example
+      POSTGRES_DB: ecss-fusion-hackathon
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@pgadmin.com
+      PGADMIN_DEFAULT_PASSWORD: password
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - 15432:80
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - db_postgres
 
   portainer:
     image: portainer/portainer-ee:latest
@@ -64,7 +79,6 @@ services:
       - portainer_data:/data
       - /var/run/docker.sock:/var/run/docker.sock
 
-
   caddy:
     image: caddy
     container_name: caddy
@@ -73,6 +87,7 @@ services:
       - "80:80"
       - "443:443"
       - "443:443/udp"
+      - "15432:15432"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
@@ -86,3 +101,4 @@ volumes:
   portainer_data:
   caddy_data:
   caddy_config:
+  pgadmin_data:
