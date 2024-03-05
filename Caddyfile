@@ -19,14 +19,5 @@ society.ecs.soton.ac.uk {
         redir /hackathon https://ecss-hackathon.netlify.app
         redir /meeting-minutes https://drive.google.com/drive/folders/1wImL0SD89__iD2wBrVUuEH2mEyyWEJiN
         redir /constitution https://drive.google.com/file/d/1taUl5iwuULoVTx170ZhNcEKpEjQyjMcl/view?usp=sharing
-        
 
-}
-
-society.ecs.soton.ac.uk:8081 {
-        respond "8081 is working :)"
-}
-
-society.ecs.soton.ac.uk:15432 {
-        reverse_proxy pgadmin:3002
 }
