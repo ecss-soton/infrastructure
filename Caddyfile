@@ -12,6 +12,15 @@ society.ecs.soton.ac.uk {
         handle /fusion-hack/* {
                 reverse_proxy web_teamreg:3001
         }
+
+
+        redir /verify https://sotonverify.link/
+        redir /verify-invite https://discord.com/api/oauth2/authorize?client_id=1004433125968969890&permissions=268435456&scope=bot
+        redir /hackathon https://ecss-hackathon.netlify.app
+        redir /meeting-minutes https://drive.google.com/drive/folders/1wImL0SD89__iD2wBrVUuEH2mEyyWEJiN
+        redir /constitution https://drive.google.com/file/d/1taUl5iwuULoVTx170ZhNcEKpEjQyjMcl/view?usp=sharing
+        
+
 }
 
 society.ecs.soton.ac.uk:8081 {
