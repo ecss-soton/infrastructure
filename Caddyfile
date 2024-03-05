@@ -1,0 +1,15 @@
+society.ecs.soton.ac.uk {
+        reverse_proxy web_main:3000
+
+        handle_path /service/portainer/* {
+                reverse_proxy portainer:9000
+        }
+
+        handle_path /service/mongo/* {
+                reverse_proxy web_mongo:3001
+        }
+}
+
+society.ecs.soton.ac.uk:8081 {
+        respond "8081 is working :)"
+}

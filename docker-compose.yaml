@@ -1,14 +1,88 @@
+version: "3.7"
 services:
+
   web_main:
+    image: ecss/web_main:feat-docker
+    container_name: web_main
+    volumes:
+        - web_main_data:/home/node/app/media
+    restart: unless-stopped
+    depends_on:
+      - db_mongo
+    env_file:
+      - ./env/web_main.env
 
-  web_soton-verify:
+#  web_sotonverify:
 
-  web_hackathon-dashboard:
+  web_teamreg:
+    image: ecss/web_teamreg:main
+    container_name: web_teamreg
+    ports:
+      - "3001:3001"
+    volumes:
+        - web_teamreg_data:/app/cvs
+    restart: unless-stopped
+    depends_on:
+      - db_postgres
+    env_file:
+      - env/web_teamreg.env
 
-  bot_soton-verify:
+  bot_sotonverify:
+    image: ecss/bot_sotonverify:main
+    container_name: bot_sotonverify
+    restart: unless-stopped
+    env_file:
+      - ./env/bot_sotonverify.env
 
-  bot_main:
+  db_mongo:
+    image: mongo
+    container_name: db_mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - "27018:27017"
 
-  mongo_db:
+  db_postgres:
+    image: postgres
+    container_name: db_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: example
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  portainer:
+    image: portainer/portainer-ee:latest
+    container_name: portainer
+    restart: unless-stopped
+    command: --base-url=/service/portainer
+    volumes:
+      - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+
 
   caddy:
+    image: caddy
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  web_main_data:
+  web_teamreg_data:
+  mongodb_data:
+  postgres_data:
+  portainer_data:
+  caddy_data:
+  caddy_config:
