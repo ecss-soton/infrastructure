@@ -21,7 +21,6 @@ that infrastructure. It is our attempt at IaC (Infrastructure as Code)
   - [env/bot_sotonverify.env.example](env/bot_sotonverify.env.example) - Example env file for the sotonverify bot
 - A script to update the infrastructure
   - [update.sh](update.sh) - A simple script to pull the latest changes and restart the infrastructure
-  - 
 
 ## How to use
 
@@ -61,6 +60,7 @@ docker compose up -d
 1. Run the update script
 
 ```bash
+chmod +x update.sh
 ./update.sh
 ```
 
