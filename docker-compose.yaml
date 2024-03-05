@@ -25,7 +25,7 @@ services:
     depends_on:
       - db_postgres
     env_file:
-      - ./env/web_hackathondashboard.env
+      - env/web_teamreg.env
 
   bot_sotonverify:
     image: ecss/bot_sotonverify:main
