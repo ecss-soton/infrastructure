@@ -2,7 +2,7 @@ version: "3.7"
 services:
 
   web_main:
-    image: ecss/web_main:main
+    image: ecss/web_main:feat-docker
     container_name: web_main
     volumes:
         - web_main_data:/home/node/app/media
