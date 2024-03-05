@@ -8,7 +8,7 @@ services:
         - web_main_data:/home/node/app/media
     restart: unless-stopped
     depends_on:
-      - mongodb
+      - db_mongo
     env_file:
       - ./env/web_main.env
 
@@ -23,7 +23,7 @@ services:
         - web_teamreg_data:/app/cvs
     restart: unless-stopped
     depends_on:
-      - mongodb
+      - db_postgres
     env_file:
       - ./env/web_hackathondashboard.env
 
@@ -56,11 +56,12 @@ services:
       - postgres_data:/var/lib/postgresql/data/
 
   portainer:
-    image: portainer/portainer-ce:latest
+    image: portainer/portainer-ee:latest
     container_name: portainer
     restart: unless-stopped
+    command: --base-url=/service/portainer
     volumes:
-      - data:/data
+      - portainer_data:/data
       - /var/run/docker.sock:/var/run/docker.sock
 
 
@@ -76,12 +77,6 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
-
-
-
-
-
-
 
 volumes:
   web_main_data:
