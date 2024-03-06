@@ -115,3 +115,8 @@ volumes:
   portainer_data:
   caddy_data:
   caddy_config:
+
+networks:
+  network1:
+    name: services_default
+    external: true
