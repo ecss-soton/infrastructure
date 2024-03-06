@@ -11,11 +11,12 @@ services:
       - "3000:3000"
     depends_on:
       - db_mongo
-#    env_file:
-#      - stack.env
-#      - ./env/web_main.env
+    environment:
+      - PORT=3000
+      - PAYLOAD_PUBLIC_SERVER_URL=https://society.ecs.soton.ac.uk
+      - NEXT_PUBLIC_SERVER_URL=https://society.ecs.soton.ac.uk
 
-#  web_sotonverify:
+  #  web_sotonverify:
 
   web_teamreg:
     image: ecss/web_teamreg:main
@@ -29,17 +30,16 @@ services:
 #      - db_postgres
     environment:
       - PORT=3001
-#    env_file:
-#      - stack.env
-#      - env/web_teamreg.env
+      - NEXTAUTH_URL=https://society.ecs.soton.ac.uk/hackathon/api/auth
+      - BASE_URL=https://society.ecs.soton.ac.uk/hackathon
 
   bot_sotonverify:
     image: ecss/bot_sotonverify:main
     container_name: bot_sotonverify
     restart: unless-stopped
-#    env_file:
-#      - stack.env
-#      - ./env/bot_sotonverify.env
+    environment:
+      - API_URL=https://sotonverify.link
+      - DISPLAY_URL=https://sotonverify.link
 
   db_mongo:
     image: mongo
@@ -78,35 +78,10 @@ services:
 #    depends_on:
 #      - db_postgres
 
-#  portainer:
-#    image: portainer/portainer-ee:latest
-#    container_name: portainer
-#    restart: unless-stopped
-#    command: --base-url=/service/portainer
-#    volumes:
-#      - portainer_data:/data
-#      - /var/run/docker.sock:/var/run/docker.sock
-#
-#  caddy:
-#    image: caddy
-#    container_name: caddy
-#    restart: unless-stopped
-#    ports:
-#      - "80:80"
-#      - "443:443"
-#      - "443:443/udp"
-#      - "15432:15432"
-#    volumes:
-#      - ./Caddyfile:/etc/caddy/Caddyfile
-#      - caddy_data:/data
-#      - caddy_config:/config
-
 volumes:
   web_main_data:
   web_teamreg_data:
   mongodb_data:
   postgres_data:
-#  portainer_data:
-#  caddy_data:
   caddy_config:
   pgadmin_data:
