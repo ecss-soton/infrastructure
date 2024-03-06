@@ -1,0 +1,109 @@
+version: "3.7"
+services:
+
+  web_main:
+    image: ecss/web_main:main
+    container_name: web_main
+    volumes:
+        - web_main_data:/home/node/app/media
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db_mongo
+    env_file:
+      - ./env/web_main.env
+
+#  web_sotonverify:
+
+  web_teamreg:
+    image: ecss/web_teamreg:main
+    container_name: web_teamreg
+    ports:
+      - "3001:3001"
+    volumes:
+        - web_teamreg_data:/app/cvs
+    restart: unless-stopped
+#    depends_on:
+#      - db_postgres
+    environment:
+      - PORT=3001
+    env_file:
+      - env/web_teamreg.env
+
+  bot_sotonverify:
+    image: ecss/bot_sotonverify:main
+    container_name: bot_sotonverify
+    restart: unless-stopped
+    env_file:
+      - ./env/bot_sotonverify.env
+
+  db_mongo:
+    image: mongo
+    container_name: db_mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - "27017:27017"
+
+#  db_postgres:
+#    image: postgres
+#    container_name: db_postgres
+#    restart: unless-stopped
+#    environment:
+#      POSTGRES_USER: ecss
+#      POSTGRES_PASSWORD: example
+#      POSTGRES_DB: ecss-fusion-hackathon
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data/
+#
+#  pgadmin:
+#    image: dpage/pgadmin4:latest
+#    container_name: pgadmin
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: admin@pgadmin.com
+#      PGADMIN_DEFAULT_PASSWORD: password
+#      PGADMIN_LISTEN_PORT: 3002
+#    ports:
+#      - "3002:3002"
+#    volumes:
+#      - pgadmin_data:/var/lib/pgadmin
+#    depends_on:
+#      - db_postgres
+
+#  portainer:
+#    image: portainer/portainer-ee:latest
+#    container_name: portainer
+#    restart: unless-stopped
+#    command: --base-url=/service/portainer
+#    volumes:
+#      - portainer_data:/data
+#      - /var/run/docker.sock:/var/run/docker.sock
+#
+#  caddy:
+#    image: caddy
+#    container_name: caddy
+#    restart: unless-stopped
+#    ports:
+#      - "80:80"
+#      - "443:443"
+#      - "443:443/udp"
+#      - "15432:15432"
+#    volumes:
+#      - ./Caddyfile:/etc/caddy/Caddyfile
+#      - caddy_data:/data
+#      - caddy_config:/config
+
+volumes:
+  web_main_data:
+  web_teamreg_data:
+  mongodb_data:
+  postgres_data:
+#  portainer_data:
+#  caddy_data:
+  caddy_config:
+  pgadmin_data:

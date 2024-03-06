@@ -10,8 +10,9 @@ that infrastructure. It is our attempt at IaC (Infrastructure as Code)
 
 ## What does this repo contain
 
-- The docker compose file
-  - [docker-compose.yaml](docker-compose.yaml)
+- Infrastructure configuration
+  - [docker-compose.yaml](docker-compose.yaml) The docker compose file to run portainer and caddy
+  - [stack.yaml](stack.yaml) - The main docker-compose file for our infrastructure
 - Configs for services that we run
   - [Caddyfile](Caddyfile) - The config for our reverse proxy
 - Environment variables
