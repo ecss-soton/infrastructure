@@ -27,7 +27,8 @@ volumes:
   portainer_data:
   caddy_data:
   caddy_config:
-  
-network1:
-  name: services_default
-  external: true
+
+networks:
+  network1:
+    name: services_default
+    external: true
