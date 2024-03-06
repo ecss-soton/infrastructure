@@ -9,7 +9,7 @@ society.ecs.soton.ac.uk {
                 reverse_proxy web_mongo:3001
         }
 
-        handle /hackathon/* {
+        handle /hackathon /hackathon/* {
                 reverse_proxy web_teamreg:3001
         }
 
