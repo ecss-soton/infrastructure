@@ -11,8 +11,8 @@ services:
       - "3000:3000"
     depends_on:
       - db_mongo
-    env_file:
-      - stack.env
+#    env_file:
+#      - stack.env
 #      - ./env/web_main.env
 
 #  web_sotonverify:
@@ -29,16 +29,16 @@ services:
 #      - db_postgres
     environment:
       - PORT=3001
-    env_file:
-      - stack.env
+#    env_file:
+#      - stack.env
 #      - env/web_teamreg.env
 
   bot_sotonverify:
     image: ecss/bot_sotonverify:main
     container_name: bot_sotonverify
     restart: unless-stopped
-    env_file:
-      - stack.env
+#    env_file:
+#      - stack.env
 #      - ./env/bot_sotonverify.env
 
   db_mongo:
