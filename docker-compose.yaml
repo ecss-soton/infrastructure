@@ -58,6 +58,12 @@ services:
       - mongodb_data:/data/db
     ports:
       - "27017:27017"
+      
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 5
 
 #  db_postgres:
 #    image: postgres
