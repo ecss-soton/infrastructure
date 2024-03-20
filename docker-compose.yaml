@@ -122,8 +122,8 @@ services:
       - "443:443/udp"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/data
-      - caddy_config:/config
+#      - caddy_data:/data
+#      - caddy_config:/config
 
 volumes:
   web_main_data:
@@ -132,5 +132,5 @@ volumes:
 #  postgres_data:
 #  pgadmin_data:
   portainer_data:
-  caddy_data:
-  caddy_config:
+#  caddy_data:
+#  caddy_config:
