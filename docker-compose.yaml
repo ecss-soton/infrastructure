@@ -18,7 +18,19 @@ services:
       - PAYLOAD_PUBLIC_SERVER_URL=https://society.ecs.soton.ac.uk
       - NEXT_PUBLIC_SERVER_URL=https://society.ecs.soton.ac.uk
 
-  #  web_sotonverify:
+  web_sotonverify:
+    image: ecss/web_sotonverify:main
+    container_name: web_sotonverify
+    restart: unless-stopped
+    ports:
+      - "3002:3002"
+#    depends_on:
+#      - db_postgres
+    env_file:
+      - ./env/web_sotonverify.env
+    environment:
+      - PORT=3002
+      - NEXTAUTH_URL=https://sotonverify.link/
 
   web_teamreg:
     image: ecss/web_teamreg:main
@@ -58,9 +70,10 @@ services:
       - mongodb_data:/data/db
     ports:
       - "27017:27017"
-      
+
   watchtower:
     image: containrrr/watchtower
+    container_name: watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     command: --interval 5
