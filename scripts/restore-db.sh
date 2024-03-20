@@ -12,7 +12,8 @@ mkdir -p backups/db/tmp
 tar -xvzf $1 -C backups/db/tmp
 
 # Copy the backup from docker to the host
-docker cp backups/db/tmp/backups/db/ecss-website-cms db_mongo:/ecss-website-cms
+docker cp backups/db/tmp/ecss-website-cms db_mongo:/ecss-website-cms
+docker cp backups/db/tmp/media web_main:/home/node/app/media
 
 # Restore the database (https://www.mongodb.com/docs/database-tools/mongorestore/)
 docker exec db_mongo mongorestore --uri="mongodb://root:example@db_mongo:27017/ecss-website-cms?authSource=admin" --db=ecss-website-cms /ecss-website-cms
