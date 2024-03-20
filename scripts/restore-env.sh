@@ -5,5 +5,5 @@ if [[ $# -eq 0 ]] ; then
     exit 0
 fi
 
-# Create a backup of the environment files
+# Extract the backup
 tar -xvzf $1 -C env
