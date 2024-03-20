@@ -13,7 +13,9 @@ docker cp db_mongo:/ecss-website-cms/. backups/db/ecss-website-cms
 date=$(date +"%Y-%m-%dT%H%M%S")
 
 # Create a tarball of the backup
-tar -zcvf "backups/db/backup-db-${date}".tar.gz backups/db/ecss-website-cms
+tar -zcf "backups/db/backup-db-${date}.tar.gz" backups/db/ecss-website-cms
 
 # Remove the backup folder
 rm -rf backups/db/ecss-website-cms
+
+echo "Mongodb database backup created at backups/db/backup-db-${date}.tar.gz"

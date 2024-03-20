@@ -6,4 +6,6 @@ mkdir -p backups/env
 date=$(date +"%Y-%m-%dT%H%M%S")
 
 # Create a backup of the environment files
-tar --exclude='*.example' -zcvf "backups/env/backup-env-${date}".tar.gz env
+tar --exclude='*.example' -zcf "backups/env/backup-env-${date}.tar.gz" env
+
+echo "Environment variable backup created at backups/env/backup-env-${date}.tar.gz"
