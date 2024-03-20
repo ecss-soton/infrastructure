@@ -1,38 +1,36 @@
 society.ecs.soton.ac.uk {
-        reverse_proxy web_main:3000
+	reverse_proxy web_main:3000
 
-        handle_path /service/portainer/* {
-                reverse_proxy portainer:9000
-        }
+	handle_path /service/portainer/* {
+		reverse_proxy portainer:9000
+	}
 
-        handle_path /service/mongo/* {
-                reverse_proxy web_mongo:3001
-        }
+	handle_path /service/mongo/* {
+		reverse_proxy web_mongo:3001
+	}
 
-        handle /hackathon/* {
-                reverse_proxy web_teamreg:3001
-        }
+	handle /hackathon/* {
+		reverse_proxy web_teamreg:3001
+	}
 
-        handle /hackathon {
-                reverse_proxy web_teamreg:3001
-        }
+	handle /hackathon {
+		reverse_proxy web_teamreg:3001
+	}
 
-        redir /verify https://sotonverify.link/
-        redir /verify-invite https://discord.com/api/oauth2/authorize?client_id=1004433125968969890&permissions=268435456&scope=bot
-        redir /meeting-minutes https://drive.google.com/drive/folders/1wImL0SD89__iD2wBrVUuEH2mEyyWEJiN
-        redir /constitution https://drive.google.com/file/d/1taUl5iwuULoVTx170ZhNcEKpEjQyjMcl/view?usp=sharing
-
+	redir /verify https://sotonverify.link/
+	redir /verify-invite https://discord.com/api/oauth2/authorize?client_id=1004433125968969890&permissions=268435456&scope=bot
+	redir /meeting-minutes https://drive.google.com/drive/folders/1wImL0SD89__iD2wBrVUuEH2mEyyWEJiN
+	redir /constitution https://drive.google.com/file/d/1taUl5iwuULoVTx170ZhNcEKpEjQyjMcl/view?usp=sharing
 }
 
 www.society.ecs.soton.ac.uk {
-        redir https://society.ecs.soton.ac.uk{uri}
+	redir https://society.ecs.soton.ac.uk{uri}
 }
 
 sotonverify.link {
-        reverse_proxy web_sotonverify:3002
+	reverse_proxy web_sotonverify:3002
 }
 
 www.sotonverify.link {
-        redir https://sotonverify.link{uri}
+	redir https://sotonverify.link{uri}
 }
-
