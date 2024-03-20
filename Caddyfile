@@ -24,6 +24,15 @@ society.ecs.soton.ac.uk {
 
 }
 
+www.society.ecs.soton.ac.uk {
+        redir https://society.ecs.soton.ac.uk{uri}
+}
+
 sotonverify.link {
         reverse_proxy web_sotonverify:3002
 }
+
+www.sotonverify.link {
+        redir https://sotonverify.link{uri}
+}
+
