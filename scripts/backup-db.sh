@@ -14,10 +14,10 @@ docker cp web_main:/home/node/app/media backups/db/tmp/media
 date=$(date +"%Y-%m-%dT%H%M%S")
 
 # Create a tarball of the backup
-tar -zcf "backups/db/backup-db-${date}.tar.gz" backups/db/tmp
+tar -zcf "backups/db/backup-db-${date}.tar.gz" -C backups/db/tmp .
 
 # Remove the backup folder on the host
-rm -rf backups/db/ecss-website-cms
+rm -rf backups/db/tmp
 
 # Remove the backup from the docker container
 docker exec db_mongo rm -rf /ecss-website-cms
