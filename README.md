@@ -27,6 +27,7 @@ that infrastructure. It is our attempt at IaC (Infrastructure as Code)
   - [restore-env.sh](restore-env.sh) - Script to restore the env files
   - [hydrate-db.sh](hydrate-db.sh) - Script to hydrate the mongodb database from the main web github repo
   - [backup-db.sh](backup-db.sh) - Script to backup the mongodb database
+  - [restore-db.sh](restore-db.sh) - Script to restore the mongodb database
 
 ## How to use
 
