@@ -12,7 +12,6 @@ that infrastructure. It is our attempt at IaC (Infrastructure as Code)
 
 - Infrastructure configuration
   - [docker-compose.yaml](docker-compose.yaml) The docker compose file to run portainer and caddy
-  - [stack.yaml](stack.yaml) - The main docker-compose file for our infrastructure
 - Configs for services that we run
   - [Caddyfile](Caddyfile) - The config for our reverse proxy
 - Environment variables
@@ -21,7 +20,12 @@ that infrastructure. It is our attempt at IaC (Infrastructure as Code)
   - [env/web_teamreg.env.example](env/web_teamreg.env.example) - Example env file for the hackathon team registration website
   - [env/bot_sotonverify.env.example](env/bot_sotonverify.env.example) - Example env file for the sotonverify bot
 - A script to update the infrastructure
-  - [update.sh](update.sh) - A simple script to pull the latest changes and restart the infrastructure
+  - [install.sh](install.sh) - Script to install the infrastructure from scratch
+  - [update.sh](update.sh) - Script to pull the latest changes and restart the infrastructure
+  - [prune.sh](prune.sh) - Script to prune various docker objects (containers, images, volumes)
+  - [backup-env.sh](backup-env.sh) - Script to backup the env files
+  - [restore-env.sh](restore-env.sh) - Script to restore the env files
+  - [hydrate-db.sh](hydrate-db.sh) - Script to hydrate the mongodb database from the main web github repo
 
 ## How to use
 
@@ -45,7 +49,7 @@ cp env/web_main.env.example env/web_main.env && cp env/web_sotonverify.env.examp
 
 3. Configure the Caddyfile
 
-You'll want to change our FQDN (society.ecs.soton.ac.uk) to your own.
+You'll want to change our FQDN (society.ecs.soton.ac.uk + sotonverify.link) to your own.
 
 3. Run the infrastructure
 
@@ -61,4 +65,9 @@ docker compose up -d
 chmod +x scripts/update.sh && ./scripts/update.sh
 ```
 
+## Domains
 
+- [society.ecs.soton.ac.uk](https://society.ecs.soton.ac.uk) - The main ECSS website
+- [sotonverify.link](https://sotonverify.link) - The sotonverify website
+
+Both websites redirect www. to the non-www version
