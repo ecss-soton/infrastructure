@@ -52,8 +52,8 @@ services:
     container_name: db_mongo
     restart: unless-stopped
     environment:
-      MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/db_mongo_username
-      MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/db_mongo_password
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example1
     secrets:
       - db_mongo_username
       - db_mongo_password
