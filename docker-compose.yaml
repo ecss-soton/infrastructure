@@ -55,7 +55,8 @@ services:
       MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/db_mongo_username
       MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/db_mongo_password
     secrets:
-      - db_mongo_secret
+      - db_mongo_username
+      - db_mongo_password
     volumes:
       - mongodb_data:/data/db
 
