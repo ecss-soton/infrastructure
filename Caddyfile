@@ -5,10 +5,6 @@ society.ecs.soton.ac.uk {
 		reverse_proxy portainer:9000
 	}
 
-	handle_path /service/mongo/* {
-		reverse_proxy web_mongo:3000
-	}
-
 	handle /hackathon/* {
 		reverse_proxy web_teamreg:3000
 	}
