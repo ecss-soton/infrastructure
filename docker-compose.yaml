@@ -53,7 +53,7 @@ services:
     restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example1
+      MONGO_INITDB_ROOT_PASSWORD: example
     secrets:
       - db_mongo_username
       - db_mongo_password
