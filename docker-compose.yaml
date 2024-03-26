@@ -55,9 +55,8 @@ services:
     image: mongo
     container_name: db_mongo
     restart: unless-stopped
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+    env_file:
+      - ./env/db_mongo.env
     volumes:
       - mongodb_data:/data/db
 
