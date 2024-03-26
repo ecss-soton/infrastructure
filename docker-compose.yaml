@@ -52,8 +52,8 @@ services:
     container_name: db_mongo
     restart: unless-stopped
     environment:
-      MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/db_mongo_secret
-      MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/db_mongo_secret
+      MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/db_mongo_username
+      MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/db_mongo_password
     secrets:
       - db_mongo_secret
     volumes:
@@ -89,8 +89,10 @@ services:
       - caddy_config:/config
 
 secrets:
-  db_mongo_secret:
-    file: ./env/db_mongo.env
+  db_mongo_password:
+    file: ./env/db_mongo_password.txt
+  db_mongo_username:
+    file: ./env/db_mongo_username.txt
 
 volumes:
   web_main_data:
