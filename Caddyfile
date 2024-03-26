@@ -5,13 +5,13 @@ society.ecs.soton.ac.uk {
 		reverse_proxy portainer:9000
 	}
 
-	handle /hackathon/* {
-		reverse_proxy web_teamreg:3000
-	}
+	# handle /hackathon/* {
+	# 	reverse_proxy web_teamreg:3000
+	# }
 
-	handle /hackathon {
-		reverse_proxy web_teamreg:3000
-	}
+	# handle /hackathon {
+	# 	reverse_proxy web_teamreg:3000
+	# }
 
 	redir /verify https://sotonverify.link/
 	redir /verify-invite https://discord.com/api/oauth2/authorize?client_id=1004433125968969890&permissions=268435456&scope=bot

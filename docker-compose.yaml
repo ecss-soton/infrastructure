@@ -26,16 +26,16 @@ services:
       - PORT=3000
       - NEXTAUTH_URL=https://sotonverify.link/
 
-  web_teamreg:
-    image: ecss/web_teamreg:main
-    container_name: web_teamreg
-    restart: unless-stopped
-    env_file:
-      - ./env/web_teamreg.env
-    environment:
-      - PORT=3000
-      - NEXTAUTH_URL=https://society.ecs.soton.ac.uk/hackathon/api/auth
-      - BASE_URL=https://society.ecs.soton.ac.uk/hackathon
+#  web_teamreg:
+#    image: ecss/web_teamreg:main
+#    container_name: web_teamreg
+#    restart: unless-stopped
+#    env_file:
+#      - ./env/web_teamreg.env
+#    environment:
+#      - PORT=3000
+#      - NEXTAUTH_URL=https://society.ecs.soton.ac.uk/hackathon/api/auth
+#      - BASE_URL=https://society.ecs.soton.ac.uk/hackathon
 
   bot_sotonverify:
     image: ecss/bot_sotonverify:main
