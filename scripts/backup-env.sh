@@ -1,5 +1,8 @@
 #! /bin/bash
 
+# Navigate to the infrastructure directory, necessary for cron jobs
+cd ~/infrastructure
+
 mkdir -p backups/env
 
 # Get the current date in the format YYYY-MM-DD HHMMSS

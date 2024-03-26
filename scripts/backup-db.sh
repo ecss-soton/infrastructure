@@ -1,5 +1,8 @@
 #! /bin/bash
 
+# Navigate to the infrastructure directory, necessary for cron jobs
+cd ~/infrastructure
+
 # Create directory for backup to go
 mkdir -p backups/db/tmp
 
