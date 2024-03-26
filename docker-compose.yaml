@@ -37,8 +37,6 @@ services:
     container_name: web_teamreg
     ports:
       - "3001:3001"
-    volumes:
-        - web_teamreg_data:/app/cvs
     restart: unless-stopped
 #    depends_on:
 #      - db_postgres
@@ -127,7 +125,6 @@ services:
 
 volumes:
   web_main_data:
-  web_teamreg_data:
   mongodb_data:
 #  postgres_data:
 #  pgadmin_data:
