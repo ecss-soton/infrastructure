@@ -51,8 +51,11 @@ services:
     image: mongo
     container_name: db_mongo
     restart: unless-stopped
-    env_file:
-      - ./env/db_mongo.env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/db_mongo_secret
+      MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/db_mongo_secret
+    secrets:
+      - db_mongo_secret
     volumes:
       - mongodb_data:/data/db
 
@@ -84,6 +87,10 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
+
+secrets:
+  db_mongo_secret:
+    file: ./env/db_mongo.env
 
 volumes:
   web_main_data:
