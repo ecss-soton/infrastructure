@@ -20,8 +20,6 @@ services:
     image: ecss/web_sotonverify:main
     container_name: web_sotonverify
     restart: unless-stopped
-#    depends_on:
-#      - db_postgres
     env_file:
       - ./env/web_sotonverify.env
     environment:
@@ -32,8 +30,6 @@ services:
     image: ecss/web_teamreg:main
     container_name: web_teamreg
     restart: unless-stopped
-#    depends_on:
-#      - db_postgres
     env_file:
       - ./env/web_teamreg.env
     environment:
@@ -67,31 +63,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     command: --interval 5
 
-#  db_postgres:
-#    image: postgres
-#    container_name: db_postgres
-#    restart: unless-stopped
-#    environment:
-#      POSTGRES_USER: ecss
-#      POSTGRES_PASSWORD: example
-#      POSTGRES_DB: ecss-fusion-hackathon
-#    volumes:
-#      - postgres_data:/var/lib/postgresql/data/
-#
-#  pgadmin:
-#    image: dpage/pgadmin4:latest
-#    container_name: pgadmin
-#    environment:
-#      PGADMIN_DEFAULT_EMAIL: admin@pgadmin.com
-#      PGADMIN_DEFAULT_PASSWORD: password
-#      PGADMIN_LISTEN_PORT: 3002
-#    ports:
-#      - "3002:3002"
-#    volumes:
-#      - pgadmin_data:/var/lib/pgadmin
-#    depends_on:
-#      - db_postgres
-
   portainer:
     image: portainer/portainer-ee:latest
     container_name: portainer
@@ -117,8 +88,6 @@ services:
 volumes:
   web_main_data:
   mongodb_data:
-#  postgres_data:
-#  pgadmin_data:
   portainer_data:
   caddy_data:
   caddy_config:
