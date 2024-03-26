@@ -7,8 +7,6 @@ services:
     volumes:
         - web_main_data:/home/node/app/media
     restart: unless-stopped
-    ports:
-      - "3000:3000"
     depends_on:
       - db_mongo
     env_file:
@@ -22,28 +20,24 @@ services:
     image: ecss/web_sotonverify:main
     container_name: web_sotonverify
     restart: unless-stopped
-    ports:
-      - "3002:3002"
 #    depends_on:
 #      - db_postgres
     env_file:
       - ./env/web_sotonverify.env
     environment:
-      - PORT=3002
+      - PORT=3000
       - NEXTAUTH_URL=https://sotonverify.link/
 
   web_teamreg:
     image: ecss/web_teamreg:main
     container_name: web_teamreg
-    ports:
-      - "3001:3001"
     restart: unless-stopped
 #    depends_on:
 #      - db_postgres
     env_file:
       - ./env/web_teamreg.env
     environment:
-      - PORT=3001
+      - PORT=3000
       - NEXTAUTH_URL=https://society.ecs.soton.ac.uk/hackathon/api/auth
       - BASE_URL=https://society.ecs.soton.ac.uk/hackathon
 
@@ -66,8 +60,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
       - mongodb_data:/data/db
-    ports:
-      - "27017:27017"
 
   watchtower:
     image: containrrr/watchtower

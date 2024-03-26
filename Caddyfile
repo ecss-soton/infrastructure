@@ -6,15 +6,15 @@ society.ecs.soton.ac.uk {
 	}
 
 	handle_path /service/mongo/* {
-		reverse_proxy web_mongo:3001
+		reverse_proxy web_mongo:3000
 	}
 
 	handle /hackathon/* {
-		reverse_proxy web_teamreg:3001
+		reverse_proxy web_teamreg:3000
 	}
 
 	handle /hackathon {
-		reverse_proxy web_teamreg:3001
+		reverse_proxy web_teamreg:3000
 	}
 
 	redir /verify https://sotonverify.link/
@@ -28,7 +28,7 @@ www.society.ecs.soton.ac.uk {
 }
 
 sotonverify.link {
-	reverse_proxy web_sotonverify:3002
+	reverse_proxy web_sotonverify:3000
 }
 
 www.sotonverify.link {
