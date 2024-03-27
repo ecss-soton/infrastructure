@@ -1,3 +1,3 @@
 #! /bin/bash
 
-docker system prune -f --filter "until=48h"
+docker system prune -af --filter "until=48h"
