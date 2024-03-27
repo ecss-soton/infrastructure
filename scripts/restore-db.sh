@@ -5,6 +5,16 @@ if [[ $# -eq 0 ]] ; then
     exit 0
 fi
 
+cd ~/infrastructure
+
+# Check the secrets/db_mongo.txt file exists
+if [ ! -f secrets/db_mongo.txt ]; then
+  echo "secrets/db_mongo.txt file not found"
+  exit 1
+fi
+
+uri=$(cat secrets/db_mongo.txt)
+
 # Create a directory for the backup to go
 mkdir -p backups/db/tmp
 
@@ -16,7 +26,7 @@ docker cp backups/db/tmp/ecss-website-cms/. db_mongo:/ecss-website-cms
 docker cp backups/db/tmp/media/. web_main:/home/node/app/media
 
 # Restore the database (https://www.mongodb.com/docs/database-tools/mongorestore/)
-docker exec db_mongo mongorestore --uri="mongodb://root:example@db_mongo:27017/ecss-website-cms?authSource=admin" --db=ecss-website-cms /ecss-website-cms
+docker exec db_mongo mongorestore --uri="$uri" --db=ecss-website-cms /ecss-website-cms
 
 # Remove the backup from the docker container
 docker exec db_mongo rm -rf /ecss-website-cms

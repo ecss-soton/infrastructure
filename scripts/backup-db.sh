@@ -3,17 +3,19 @@
 # Navigate to the infrastructure directory, necessary for cron jobs
 cd ~/infrastructure
 
-# Check the secrets/db_mongo.yml file exists
-if [ ! -f secrets/db_mongo.yml ]; then
-  echo "secrets/db_mongo.yml file not found"
+# Check the secrets/db_mongo.txt file exists
+if [ ! -f secrets/db_mongo.txt ]; then
+  echo "secrets/db_mongo.txt file not found"
   exit 1
 fi
 
 # Create directory for backup to go
 mkdir -p backups/db/tmp
 
+uri=$(cat secrets/db_mongo.txt)
+
 # Create a backup of the database (https://www.mongodb.com/docs/database-tools/mongodump/)
-docker exec db_mongo mongodump --config=secrets/db_mongo.yml --db=ecss-website-cms --out=/
+docker exec db_mongo mongodump --uri="$uri" --db=ecss-website-cms --out=/
 
 # Copy the backup from docker to the host
 docker cp db_mongo:/ecss-website-cms backups/db/tmp/ecss-website-cms

@@ -20,7 +20,7 @@ that infrastructure. It is our attempt at IaC (Infrastructure as Code)
   - [env/web_teamreg.env.example](env/web_teamreg.env.example) - Example env file for the hackathon team registration website
   - [env/bot_sotonverify.env.example](env/bot_sotonverify.env.example) - Example env file for the sotonverify bot
 - Secrets 
-  - [secrets/db_mongo.example.yml](secrets/db_mongo.example.yml) - Used to store the mongodb uri for database scripts
+  - [secrets/db_mongo.example.txt](secrets/db_mongo.example.txt) - Used to store the mongodb uri for database scripts
 - A script to update the infrastructure
   - [install.sh](install.sh) - Script to install the infrastructure from scratch
   - [update.sh](update.sh) - Script to pull the latest changes and restart the infrastructure
