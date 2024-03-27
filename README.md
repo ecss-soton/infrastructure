@@ -27,7 +27,6 @@ that infrastructure. It is our attempt at IaC (Infrastructure as Code)
   - [prune.sh](prune.sh) - Script to prune various docker objects (containers, images, volumes) (daily crontab)
   - [backup-env.sh](backup-env.sh) - Script to backup the env files (daily crontab)
   - [restore-env.sh](restore-env.sh) - Script to restore the env files
-  - [hydrate-db.sh](hydrate-db.sh) - Script to hydrate the mongodb database from the main web github repo
   - [backup-db.sh](backup-db.sh) - Script to backup the mongodb database (daily crontab)
   - [restore-db.sh](restore-db.sh) - Script to restore the mongodb database
   - [delete-old.sh](delete-old.sh) - Script to delete backups older than 30 days (daily crontab)
