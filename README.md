@@ -14,11 +14,13 @@ that infrastructure. It is our attempt at IaC (Infrastructure as Code)
   - [docker-compose.yaml](docker-compose.yaml) The docker compose file to run portainer and caddy
 - Configs for services that we run
   - [Caddyfile](Caddyfile) - The config for our reverse proxy
-- Environment variables
+- Environment variables for docker compose services
   - [env/web_main.env.example](env/web_main.env.example) - Example env file for the main website
   - [env/web_sotonverify.env.example](env/web_sotonverify.env.example) - Example env file for the sotonverify website
   - [env/web_teamreg.env.example](env/web_teamreg.env.example) - Example env file for the hackathon team registration website
   - [env/bot_sotonverify.env.example](env/bot_sotonverify.env.example) - Example env file for the sotonverify bot
+- Secrets 
+  - [secrets/db_mongo.example.yml](secrets/db_mongo.example.yml) - Used to store the mongodb uri for database scripts
 - A script to update the infrastructure
   - [install.sh](install.sh) - Script to install the infrastructure from scratch
   - [update.sh](update.sh) - Script to pull the latest changes and restart the infrastructure

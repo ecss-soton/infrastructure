@@ -1,3 +1,4 @@
 *.env
 .idea
 backups
+secrets/db_mongo.yml
