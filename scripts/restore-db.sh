@@ -21,6 +21,11 @@ mkdir -p backups/db/tmp
 # Extract the backup
 tar -xvzf $1 -C backups/db/tmp
 
+# Remove MacOS specific meta-files from extract
+rm backups/db/tmp/._*
+rm backups/db/tmp/ecss-website-cms/._*
+rm backups/db/tmp/media/._*
+
 # Copy the backup from docker to the host
 docker cp backups/db/tmp/ecss-website-cms/. db_mongo:/ecss-website-cms
 docker cp backups/db/tmp/media/. web_main:/home/node/app/media
