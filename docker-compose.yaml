@@ -26,16 +26,16 @@ services:
       - PORT=3000
       - NEXTAUTH_URL=https://sotonverify.link/
 
-#  web_teamreg:
-#    image: ecss/web_teamreg:main
-#    container_name: web_teamreg
-#    restart: unless-stopped
-#    env_file:
-#      - ./env/web_teamreg.env
-#    environment:
-#      - PORT=3000
-#      - NEXTAUTH_URL=https://society.ecs.soton.ac.uk/hackathon/api/auth
-#      - BASE_URL=https://society.ecs.soton.ac.uk/hackathon
+  # web_teamreg:
+  #   image: ecss/web_teamreg:main
+  #   container_name: web_teamreg
+  #   restart: unless-stopped
+  #   env_file:
+  #     - ./env/web_teamreg.env
+  #   environment:
+  #     - PORT=3000
+  #     - NEXTAUTH_URL=https://society.ecs.soton.ac.uk/hackathon/api/auth
+  #     - BASE_URL=https://society.ecs.soton.ac.uk/hackathon
 
   bot_sotonverify:
     image: ecss/bot_sotonverify:main
@@ -70,18 +70,30 @@ services:
       - portainer_data:/data
       - /var/run/docker.sock:/var/run/docker.sock
 
-  caddy:
-    image: caddy
-    container_name: caddy
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/data
-      - caddy_config:/config
+  
+  # app:
+  #   image: 'jc21/nginx-proxy-manager:latest'
+  #   restart: unless-stopped
+  #   ports:
+  #     - '80:80'
+  #     - '81:81'
+  #     - '443:443'
+  #   volumes:
+  #     - ./data:/data
+  #     - ./letsencrypt:/etc/letsencrypt
+
+  # caddy:
+  #   image: caddy
+  #   container_name: caddy
+  #   restart: unless-stopped
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #     - "443:443/udp"
+  #   volumes:
+  #     - ./Caddyfile:/etc/caddy/Caddyfile
+  #     - caddy_data:/data
+  #     - caddy_config:/config
 
 
 volumes:

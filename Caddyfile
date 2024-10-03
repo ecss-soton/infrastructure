@@ -1,17 +1,18 @@
-society.ecs.soton.ac.uk {
+https://society.ecs.soton.ac.uk {
+
 	reverse_proxy web_main:3000
 
 	handle_path /service/portainer/* {
 		reverse_proxy portainer:9000
 	}
 
-	# handle /hackathon/* {
-	# 	reverse_proxy web_teamreg:3000
-	# }
+	handle /hackathon/* {
+		reverse_proxy web_teamreg:3000
+	}
 
-	# handle /hackathon {
-	# 	reverse_proxy web_teamreg:3000
-	# }
+	handle /hackathon {
+		reverse_proxy web_teamreg:3000
+	}
 
 	redir /verify https://sotonverify.link/
 	redir /verify-invite https://discord.com/api/oauth2/authorize?client_id=1004433125968969890&permissions=268435456&scope=bot
@@ -19,14 +20,18 @@ society.ecs.soton.ac.uk {
 	redir /constitution https://drive.google.com/file/d/1taUl5iwuULoVTx170ZhNcEKpEjQyjMcl/view?usp=sharing
 }
 
+http://society.ecs.soton.ac.uk {
+	redir https://society.ecs.soton.ac.uk{uri}
+}
+
 www.society.ecs.soton.ac.uk {
 	redir https://society.ecs.soton.ac.uk{uri}
 }
 
-sotonverify.link {
-	reverse_proxy web_sotonverify:3000
-}
+# sotonverify.link {
+# 	reverse_proxy web_sotonverify:3000
+# }
 
-www.sotonverify.link {
-	redir https://sotonverify.link{uri}
-}
+# www.sotonverify.link {
+# 	redir https://sotonverify.link{uri}
+# }
