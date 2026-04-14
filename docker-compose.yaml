@@ -1,9 +1,12 @@
-version: "3.7"
+# version: "3.9"
 services:
 
   web_main:
     image: ecss/web_main:main
     container_name: web_main
+    networks:
+      soton_network:
+        ipv4_address: 10.5.0.5
     volumes:
         - web_main_data:/home/node/app/media
     restart: unless-stopped
@@ -20,6 +23,9 @@ services:
     image: ecss/web_sotonverify:main
     container_name: web_sotonverify
     restart: unless-stopped
+    networks:
+      soton_network:
+        ipv4_address: 10.5.0.6
     env_file:
       - ./env/web_sotonverify.env
     environment:
@@ -30,12 +36,28 @@ services:
   #   image: ecss/web_teamreg:main
   #   container_name: web_teamreg
   #   restart: unless-stopped
+  #   networks:
+  #     soton_network:
+  #       ipv4_address: 10.5.0.8
   #   env_file:
   #     - ./env/web_teamreg.env
   #   environment:
   #     - PORT=3000
   #     - NEXTAUTH_URL=https://society.ecs.soton.ac.uk/hackathon/api/auth
   #     - BASE_URL=https://society.ecs.soton.ac.uk/hackathon
+
+  web_booking:
+    image: ecss/web_booking:main
+    container_name: web_booking
+    networks:
+      soton_network:
+        ipv4_address: 10.5.0.8
+    env_file:
+      - ./env/web_booking.env
+    environment:
+      - PORT=3000
+      - NEXTAUTH_URL=https://society.ecs.soton.ac.uk/winterball
+      - BASE_URL=https://society.ecs.soton.ac.uk/winterball
 
   bot_sotonverify:
     image: ecss/bot_sotonverify:main
@@ -50,6 +72,8 @@ services:
   db_mongo:
     image: mongo
     container_name: db_mongo
+    networks:
+      soton_network:
     restart: unless-stopped
     volumes:
       - mongodb_data:/data/db
@@ -64,11 +88,25 @@ services:
   portainer:
     image: portainer/portainer-ee:latest
     container_name: portainer
+    networks:
+      soton_network:
+        ipv4_address: 10.5.0.7
     restart: unless-stopped
     command: --base-url=/service/portainer
     volumes:
       - portainer_data:/data
       - /var/run/docker.sock:/var/run/docker.sock
+
+  postgres:
+    image: postgres:18
+    ports:
+      - 5433:5432
+    networks:
+      soton_network:
+    volumes:
+      - ./pgdata:/var/lib/postgresql
+      # - ./init:/docker-entrypoint-initdb.d/
+    restart: unless-stopped
 
   
   # app:
@@ -95,6 +133,13 @@ services:
   #     - caddy_data:/data
   #     - caddy_config:/config
 
+networks:
+  soton_network:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1
 
 volumes:
   web_main_data:
@@ -102,3 +147,4 @@ volumes:
   portainer_data:
   caddy_data:
   caddy_config:
+  postgres_data:
