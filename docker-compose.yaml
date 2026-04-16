@@ -99,6 +99,9 @@ services:
 
   postgres:
     image: postgres:18
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
     ports:
       - 5433:5432
     networks:
