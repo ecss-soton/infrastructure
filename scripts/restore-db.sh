@@ -1,58 +1,60 @@
-#! /bin/bash
+#!/bin/bash
+# Exit immediately if any command fails
+set -e
 
+# --- 1. INPUT VALIDATION ---
 if [[ $# -eq 0 ]] ; then
-    echo 'Please provide a backup file to restore from as the first argument.'
-    exit 0
+    echo "Error: Please provide a backup file to restore from."
+    echo "Usage: ./restore-db.sh backups/db/backup-db-YYYY-MM-DD.tar.gz"
+    exit 1
+fi
+
+BACKUP_FILE=$(readlink -f "$1")
+
+if [ ! -f "$BACKUP_FILE" ]; then
+    echo "Error: Backup file not found at $BACKUP_FILE"
+    exit 1
 fi
 
 cd ~/infrastructure
 
-# Check the secrets/db_mongo.txt file exists
 if [ ! -f secrets/db_mongo.txt ]; then
-  echo "secrets/db_mongo.txt file not found"
+  echo "Error: secrets/db_mongo.txt not found"
   exit 1
 fi
 
-uri=$(cat secrets/db_mongo.txt)
+MONGO_URI=$(cat secrets/db_mongo.txt)
 
-# Create a directory for the backup to go
-# mkdir -p backups/db/tmp
+echo "Starting database restore process..."
 
-# # Extract the backup
-# tar -xvzf $1 -C backups/db/tmp
+# --- 2. EXTRACT BACKUP ---
+mkdir -p backups/db/tmp
+echo "Extracting backup to temporary directory..."
+tar -xvzf "$BACKUP_FILE" -C backups/db/tmp
 
-# Remove MacOS specific meta-files from extract
-rm backups/db/tmp/._*
-rm backups/db/tmp/ecss-website-cms/._*
-rm backups/db/tmp/media/._*
+# Clean up MacOS-specific hidden files (prevents restoring junk data)
+find backups/db/tmp -name "._*" -type f -delete 2>/dev/null || true
 
-# Copy the backup from docker to the host
-docker cp backups/db/tmp/ecss-website-cms/. db_mongo:/ecss-website-cms
-docker cp backups/db/tmp/media/. web_main:/home/node/app/media
+# --- 3. RESTORE MONGODB ---
+echo "Restoring MongoDB..."
+# Copy the extracted dump to the container
+docker cp backups/db/tmp/mongo_dump/. db_mongo:/restore_tmp
+# Execute mongorestore (--drop cleans the DB before restoring)
+docker exec db_mongo mongorestore --uri="$MONGO_URI" --drop --db=ecss-website-cms /restore_tmp/ecss-website-cms
 
-# # Stop all containers to ensure clean state
-# docker compose down
+# --- 4. RESTORE POSTGRESQL ---
+echo "Restoring PostgreSQL..."
+# Copy the SQL file to the container
+docker cp backups/db/tmp/postgres_all.sql infrastructure-postgres-1:/tmp/postgres_all.sql
+# Execute the SQL file using psql
+docker exec infrastructure-postgres-1 psql -U ecss -f /tmp/postgres_all.sql
 
-# # Wait for complete shutdown
-# sleep 3
-
-# # Create a fresh postgres volume with new name
-# docker volume create infrastructure_postgres_data_new 2>/dev/null || true
-
-# # Restore postgres data to the new volume
-# docker run --rm -v infrastructure_postgres_data_new:/var/lib/postgresql/data -v $(pwd)/backups/db/tmp:/backup alpine sh -c "cp -r /backup/soton-verify-db/* /var/lib/postgresql/data/"
-
-# # Fix ownership of the restored data  
-# docker run --rm -v infrastructure_postgres_data_new:/var/lib/postgresql/data postgres:latest chown -R postgres:postgres /var/lib/postgresql/data
-
-# # Start all services
-# docker compose up -d
-
-# Restore the database (https://www.mongodb.com/docs/database-tools/mongorestore/)
-docker exec db_mongo mongorestore --uri="$uri" --drop --db=ecss-website-cms /ecss-website-cms
-
-# Remove the backup from the docker container
-docker exec db_mongo rm -rf /ecss-website-cms
-
-# Remove the backup folder from the host
+# --- 5. CLEANUP ---
+echo "Cleaning up temporary host files..."
 rm -rf backups/db/tmp
+
+echo "Cleaning up temporary container files..."
+docker exec db_mongo rm -rf /restore_tmp
+docker exec infrastructure-postgres-1 rm -f /tmp/postgres_all.sql
+
+echo "Database restore complete!"
