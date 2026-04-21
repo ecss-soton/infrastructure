@@ -111,6 +111,18 @@ services:
       # - ./init:/docker-entrypoint-initdb.d/
     restart: unless-stopped
 
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: unless-stopped
+    networks:
+      soton_network:
+        ipv4_address: 10.5.0.9
+    env_file:
+      - ./env/vaultwarden.env
+    volumes:
+      - vaultwarden_data:/data
+
   
   # app:
   #   image: 'jc21/nginx-proxy-manager:latest'
@@ -151,3 +163,4 @@ volumes:
   caddy_data:
   caddy_config:
   postgres_data:
+  vaultwarden_data:

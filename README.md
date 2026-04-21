@@ -31,6 +31,9 @@ that infrastructure. It is our attempt at IaC (Infrastructure as Code)
   - [restore-db.sh](restore-db.sh) - Script to restore the mongodb database
   - [delete-old.sh](delete-old.sh) - Script to delete backups older than 30 days (daily crontab)
 
+### NGINX
+
+Our nginx config lives at `/etc/nginx/conf.d/society.conf`.
 ## How to use
 
 ### Prerequisites
