@@ -49,6 +49,25 @@ docker cp backups/db/tmp/postgres_all.sql infrastructure-postgres-1:/tmp/postgre
 # Execute the SQL file using psql
 docker exec infrastructure-postgres-1 psql -U ecss -f /tmp/postgres_all.sql
 
+# --- 5. RESTORE VAULTWARDEN ---
+echo "Checking for Vaultwarden backup data..."
+if [ -d "backups/db/tmp/vaultwarden_data" ]; then
+    echo "Restoring Vaultwarden..."
+    # Stop the container to prevent database corruption during file overwrite
+    docker stop vaultwarden
+
+    # Use a temporary alpine container to mount the docker volume, wipe it clean, and copy the backup files exactly
+    docker run --rm \
+      -v vaultwarden_data:/data \
+      -v "$(pwd)/backups/db/tmp/vaultwarden_data:/backup" \
+      alpine sh -c "rm -rf /data/* && cp -a /backup/. /data/"
+
+    # Restart the container with the restored data
+    docker start vaultwarden
+else
+    echo "Notice: No Vaultwarden data found in this backup archive. Skipping Vaultwarden restore."
+fi
+
 # --- 5. CLEANUP ---
 echo "Cleaning up temporary host files..."
 rm -rf backups/db/tmp
